@@ -4,26 +4,26 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // eslint-disable-next-line react/prop-types
-const SearchForm = ({ onSearch, onViewAll }) => {
-    const [query, setQuery] = useState('');
+const SearchForm = ({ onSearch, onViewAll }) => {//recibe dos props: onSearch y onViewAll. onSearch es la funcion que se ejecuta al enviar el formulario y onViewAll es la funcion que se ejecuta al hacer click en el boton "Ver Todos".
+    const [query, setQuery] = useState('');// para manejar el valor del input de busqueda.
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        if (query.trim() === '') {
+        e.preventDefault();//previene el comportamiento por defecto del formulario (que es recargar la pagina al enviar el formulario).
+        if (query.trim() === '') {//verifica si el input esta vacio o solo tiene espacios en blanco.
             toast.warn('Por favor ingrese un nombre para buscar');
         } else {
-            onSearch(query);
+            onSearch(query);//llama a la funcion onSearch (que es la que busca los personajes) y le pasa el valor del input como argumento.
         }
     };
 
     return (
-        
+        // formulario de busqueda
         <form onSubmit={handleSubmit} className="mb-4 flex items-center">
             <div className="relative flex-grow">
                 <input
                     type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    value={query} //valor del input es el estado query.
+                    onChange={(e) => setQuery(e.target.value)}//actualiza el estado del input al cambiar su valor.
                     placeholder="Buscar Personaje Por Nombre..."
                     className="border p-2 rounded-l w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -49,7 +49,7 @@ const SearchForm = ({ onSearch, onViewAll }) => {
             </div>
             <button
             type="button"
-            onClick={onViewAll}
+            onClick={onViewAll}//llama a la funcion onViewAll (que es la que carga todos los personajes) al hacer click en el boton "Ver Todos".
             className="bg-blue-500 text-white px-4 py-2 rounded ml-2 hover:bg-blue-700 transition-colors duration-300"
             >
                 Ver Todos

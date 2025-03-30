@@ -3,14 +3,14 @@ import React, { useContext } from 'react';
 import { FavoritesContext } from '../contexts/FavoritesContext';
 
 // eslint-disable-next-line react/prop-types
-const FavoritesModal = ({ onClose }) => {
-    const { favorites, removeFromFavorites } = useContext(FavoritesContext);
+const FavoritesModal = ({ onClose }) => {//recibe una prop onClose que es una funcion para cerrar el modal.
+    const { favorites, removeFromFavorites } = useContext(FavoritesContext);//tengo la lista de personajes favortios y la funcion removeFromFavorites que se encarga de eliminar personajes de la lista de favoritos.
 
     return (
         <div className="fixed inset-0 bg-gray-900/75 flex justify-center items-center z-50">
             <div className="bg-blue-200 p-8 rounded-lg shadow-2xl w-11/12 max-w-md relative max-h-[80vh] overflow-y-auto">
                 <button
-                onClick={onClose}
+                onClick={onClose}//cierra el modal al hacer click en el boton.
                 className="absolute top-4 right-4 text-red-500 hover:text-black transition-colors duration-300 cursor-pointer"
                 >
                     <svg
@@ -29,26 +29,30 @@ const FavoritesModal = ({ onClose }) => {
                     </svg>
                 </button>
                 <h2 className="text-3xl font-bold text-black mb-6 text-center">Favoritos</h2>
+
                 <ul className="space-y-4">
 
-                    {favorites.map((favorite) => (
+                    {favorites.map((favorite) => (//mapeo la lista de favoritos y por cada favorito muestro su nombre, especie y una imagen.)
                         <li
                         key={favorite.id}
                         className="flex justify-between items-center bg-amber-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-amber-100 hover:scale-105"
                         >
                             <div className="flex flex-col items-center sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0 sm:space-x-4">
+                                {/* imagen */}
                                 <img
                                 src={favorite.image}
                                 alt={favorite.name}
                                 className="w-12 h-12 object-cover rounded-lg mb-2 sm:mb-0"
                                 />
+                                {/* nombre y especie */}
                                 <div className="text-center sm:text-left space-y-1">
                                     <span className="text-lg text-black block">{favorite.name}</span>
                                     <span className="text-lg text-gray-600 block">{favorite.species}</span>
                                 </div>
                             </div>
+                            
                             <button
-                                onClick={() => removeFromFavorites(favorite.id)}
+                                onClick={() => removeFromFavorites(favorite.id)}//elimina el personaje de la lista de favoritos al hacer click en el boton.
                                 className="text-red-500 hover:text-red-900"
                             >
                                 <svg

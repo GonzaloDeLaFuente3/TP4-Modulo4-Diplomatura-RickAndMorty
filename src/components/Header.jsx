@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FavoritesContext } from '../contexts/FavoritesContext';
-import FavoritesModal from './FavoritesModal'; // Nuevo componente para el modal de favoritos
+import FavoritesModal from './FavoritesModal'; // Importa el componente de modal de favoritos
 
 import logo from '../assets/logo.jpeg';
 
 function Header() {
-    const { favorites } = useContext(FavoritesContext);
-    const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+    const { favorites } = useContext(FavoritesContext);//obtengo la lista de favoritos del contexto FavoritesContext.
+    const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);//estado para manejar la apertura y cierre del modal de favoritos.
 
   /* animacion de rotacion para el logo */
     const [isRotating, setIsRotating] = useState(false);
@@ -52,7 +52,7 @@ function Header() {
                 {/* Boton */}
                 <div className="flex space-x-4">
                     <motion.button
-                        onClick={() => setIsFavoritesOpen(true)}
+                        onClick={() => setIsFavoritesOpen(true)}//abre el modal de favoritos al hacer click en el boton.
                         className="bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 mt-4 sm:mt-0 cursor-pointer "
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -61,7 +61,7 @@ function Header() {
                     </motion.button>
                 </div>
             </div>
-            {isFavoritesOpen && <FavoritesModal onClose={() => setIsFavoritesOpen(false)} />}
+            {isFavoritesOpen && <FavoritesModal onClose={() => setIsFavoritesOpen(false)} />} {/* //modal de favoritos que se abre al hacer click en el boton de favoritos. Le paso onClose para cerrar el modal  */}
         </motion.header>
     );
 }

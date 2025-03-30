@@ -11,24 +11,24 @@ import Footer from './components/Footer';
 import { FavoritesProvider } from './contexts/FavoritesContext';
 
 const App = () => {
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [characters, setCharacters] = useState([]); //para guardar la lista de personajes 
+  const [loading, setLoading] = useState(false);// para indicar si se está cargando la información
 
-  const fetchCharacters = async (query) => {
-    setLoading(true);
+  const fetchCharacters = async (query) => {//funcion para buscar personajes
+    setLoading(true);//para mostrar el Loader mientras se obtiene la información.
     try {
-      const response = await axios.get(`https://rickandmortyapi.com/api/character/?name=${query}`);
-      setCharacters(response.data.results);
+      const response = await axios.get(`https://rickandmortyapi.com/api/character/?name=${query}`);//query es el nombre del personaje que se busca
+      setCharacters(response.data.results);// actualizo el estado con los personajes obtenidos
       toast.success('!Personajes cargados exitosamente!');
     // eslint-disable-next-line no-unused-vars
     } catch (error) {
       toast.error('El nombre buscado no coincide con la busqueda');
     } finally {
-      setLoading(false);
+      setLoading(false);//Finaliza desactivando loading para mostrar los resultados.
     }
   };
 
-  const viewAllCharacters = async () => {
+  const viewAllCharacters = async () => {//funcion para cargar todos los personajes
     setLoading(true);
     try {
       const response = await axios.get('https://rickandmortyapi.com/api/character/');
@@ -43,23 +43,27 @@ const App = () => {
   };
 
   return (
-    <FavoritesProvider>
-      <Header /> {/* Usa el Header aquí */}
+    <FavoritesProvider>{/* contexto de favoritos */}
+      <Header /> 
+
       <div className="container mx-auto p-4 bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 animate-gradient-x mb-10 rounded-2xl">
         <h1 className="text-3xl font-bold mb-4 text-center text-black">Rick And Morty</h1>
         <h2 className="text-3xl font-bold mb-4 text-center text-black">Buscar Personaje</h2>
-        <SearchForm onSearch={fetchCharacters} onViewAll={viewAllCharacters}/>
-        {loading ? (
+
+        {/* Formulario de busqueda */}
+        <SearchForm onSearch={fetchCharacters} onViewAll={viewAllCharacters}/> {/*fetchCharacters y viewAllCharacters como props para ejecutar la búsqueda. */}
+        {loading ? ( //si loading es true, muestra el Loader: que es una animacion de carga 
           <Loader />
-        ) : (
+        ) : (//si es false, muestra los personajes
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {characters.map((character) => (
+            {characters.map((character) => ( //recorro el array de personajes y por cada uno de ellos, renderizo el componente CharacterCard
               <CharacterCard key={character.id} character={character} />
             ))}
           </div>
         )}
         <ToastContainer />
       </div>
+
       <Footer/>
     </FavoritesProvider>
   );
